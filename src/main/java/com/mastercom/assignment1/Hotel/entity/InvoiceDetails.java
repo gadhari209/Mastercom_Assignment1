@@ -24,7 +24,7 @@ public class InvoiceDetails {
 
     private double itemPrice;
     private Date date;
-    private double quantity; // Corrected field name
+    private double quantity; 
 
     @ManyToOne
     @JoinColumn(name = "invoice_no")

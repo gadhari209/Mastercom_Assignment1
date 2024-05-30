@@ -56,15 +56,17 @@ public class InvoiceService {
     
     
     public Invoice updateInvoiceStatus(Long invoiceId, String newStatus) {
+    	System.out.println(newStatus);
+    	
     	
     	// Validate invoiceId
         if (invoiceId == null || invoiceId <= 0) {
             throw new IllegalArgumentException("Invalid invoice ID");
         }
      // Validate newStatus
-        if (!isValidInvoiceStatus(newStatus)) {
-            throw new IllegalArgumentException("Invalid invoice status: " + newStatus);
-        }
+//        if (!isValidInvoiceStatus(newStatus)) {
+//            throw new IllegalArgumentException("Invalid invoice status: " + newStatus);
+//        }
 
         Optional<Invoice> invoiceOptional = invoiceRepository.findById(invoiceId);
         if (invoiceOptional.isPresent()) {
@@ -75,9 +77,13 @@ public class InvoiceService {
             throw new RuntimeException("Invoice not found with id: " + invoiceId);
         }
     }
+    
+    
     private boolean isValidInvoiceStatus(String status) {
         // Check for valid invoice status values (case-insensitive)
-        return status.equalsIgnoreCase("paid") || status.equalsIgnoreCase("unpaid") || status.equalsIgnoreCase("cancelled");
+        return status.trim().equalsIgnoreCase("paid") || 
+                status.trim().equalsIgnoreCase("unpaid") || 
+                status.trim().equalsIgnoreCase("cancelled");
     }
     
     
