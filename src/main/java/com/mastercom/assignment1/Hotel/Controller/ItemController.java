@@ -8,6 +8,7 @@ import com.mastercom.assignment1.Hotel.service.ItemService;
 import java.util.List;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/items")
 public class ItemController {
     @Autowired

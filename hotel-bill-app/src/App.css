@@ -1,0 +1,109 @@
+/* src/App.css */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  color: #333;
+  background-image: url('E:/__Mastercom_Assignment/Hotel/hotel-bill-app/src/image.webp'); /* Replace with your desired background image URL */
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.App {
+  text-align: center;
+  backdrop-filter: blur(30px); /* Blur effect */
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 1200px;
+  margin: 20px auto;
+}
+
+.App-header {
+  background-color: rgba(248, 249, 250, 0.9); /* Slightly transparent header */
+  padding: 20px;
+  border-bottom: 1px solid #ddd;
+  border-radius: 10px 10px 0 0;
+}
+
+.App-header h1 {
+  margin: 0;
+  font-size: 2.5em;
+  color: #007bff;
+}
+
+.nav-list {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.nav-item {
+  margin: 0 15px;
+}
+
+.nav-item a {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.nav-item a:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+main {
+  padding: 20px;
+}
+
+.home {
+  text-align: center;
+}
+
+.home h2 {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.home p {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+}
+
+.home-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+item-table {
+  width: 100%; /* Adjust the width as needed */
+  border-collapse: collapse;
+  background-color: #fff; /* Set background color for the entire table */
+}
+
+.item-table th,
+.item-table td {
+  padding: 10px;
+  text-align: left;
+  color: white; /* Set text color to white */
+}
+
+.item-table th {
+  background-color: #333; /* Header background color */
+}
+
+.item-table td {
+  background-color: #555; /* Default background color for table cells */
+}
+
+.item-table tbody tr:nth-child(even) td {
+  background-color: #666; /* Alternate row background color */
+}
