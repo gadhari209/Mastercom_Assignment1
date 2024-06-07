@@ -71,3 +71,12 @@ export const updateInvoiceStatus = async (invoiceId, newStatus) => {
     throw error;
   }
 };
+export const getItemById = async (itemCode) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/${itemCode}`);
+    return response.data;
+  } catch (error) {
+    console.error(`There was an error fetching the item with code ${itemCode}!`, error);
+    throw error;
+  }
+};

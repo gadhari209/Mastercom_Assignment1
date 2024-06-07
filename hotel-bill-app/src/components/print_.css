@@ -1,0 +1,33 @@
+/* print.css */
+
+@media print {
+    body * {
+      visibility: hidden;
+    }
+    .invoice-container, .invoice-container * {
+      visibility: visible;
+    }
+    .invoice-container {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 80mm; /* Set the width to 80mm for standard receipt size */
+    margin: 0; /* Remove default margins */
+    padding: 5mm; /* Add some padding for better readability */
+    box-sizing: border-box;
+    font-size: 12px; /* Adjust font size for readability */
+    }
+    .invoice-container table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .invoice-container th, .invoice-container td {
+      border: 1px solid #000;
+      padding: 8px;
+      text-align: left;
+    }
+    .print-button-container {
+      display: none;
+    }
+  }
+  

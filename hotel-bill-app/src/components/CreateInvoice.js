@@ -1,35 +1,72 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './CreateInvoice.css'; // Import the CSS file
+import { format } from 'date-fns';
+import ViewInvoice from './ViewInvoice'; // Import the ViewInvoice component
 
 const CreateInvoice = () => {
   const [invoice, setInvoice] = useState({
     invoiceDetailsList: [],
     totalAmount: 0,
     invoiceNo: null,
+    date: format(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSS"),  // Set local date and time
+    billStatus: 'Unpaid'
   });
   const [item, setItem] = useState({
-    itemName: '',
-    itemQuantity: 0,
+    itemQuantity: '',
     itemCode: '',
-    itemPrice: 10,
   });
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [viewInvoice, setViewInvoice] = useState(false); // State to control displaying ViewInvoice
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setItem({ ...item, [name]: value });
   };
 
-  const addItem = () => {
-    const newItem = { ...item };
-    setInvoice({
-      ...invoice,
-      invoiceDetailsList: [...invoice.invoiceDetailsList, { item: newItem, itemPrice: newItem.itemPrice, quantity: newItem.itemQuantity }],
-      totalAmount: invoice.totalAmount + newItem.itemPrice * newItem.itemQuantity,
+  const fetchItemDetails = async (itemCode) => {
+    try {
+      const response = await axios.get(`http://localhost:8080/items/${itemCode}`);
+      return response.data;
+    } catch (error) {
+      setErrorMessage('Error fetching item details');
+      return null;
+    }
+  };
+
+  const addItem = async () => {
+    const itemDetails = await fetchItemDetails(item.itemCode);
+    if (itemDetails) {
+      const newItem = {
+        item: {
+          itemName: itemDetails.itemName,
+          itemCode: item.itemCode,
+          itemPrice: itemDetails.itemPrice,
+        },
+        itemPrice: itemDetails.itemPrice,
+        quantity: item.itemQuantity,
+      };
+      setInvoice((prevInvoice) => ({
+        ...prevInvoice,
+        invoiceDetailsList: [...prevInvoice.invoiceDetailsList, newItem],
+        totalAmount: prevInvoice.totalAmount + itemDetails.itemPrice * item.itemQuantity,
+      }));
+      setItem({ itemQuantity: '', itemCode: '' });
+      setErrorMessage('');
+    }
+  };
+
+  const deleteItem = (index) => {
+    setInvoice((prevInvoice) => {
+      const newInvoiceDetailsList = [...prevInvoice.invoiceDetailsList];
+      const removedItem = newInvoiceDetailsList.splice(index, 1)[0];
+      return {
+        ...prevInvoice,
+        invoiceDetailsList: newInvoiceDetailsList,
+        totalAmount: prevInvoice.totalAmount - removedItem.itemPrice * removedItem.quantity,
+      };
     });
-    setItem({ itemName: '', itemQuantity: 0, itemCode: '', itemPrice: 0 });
   };
 
   const createInvoice = async () => {
@@ -48,6 +85,8 @@ const CreateInvoice = () => {
         totalAmount: calculatedTotalAmount,
         invoiceNo: responseInvoice.invoiceNo,
       });
+      setErrorMessage('');
+      setViewInvoice(true); // Display the ViewInvoice component
     } catch (error) {
       setErrorMessage('Error creating invoice');
     }
@@ -57,13 +96,6 @@ const CreateInvoice = () => {
     <div className="invoice-container">
       <h2>Create Invoice</h2>
       <div className="item-inputs">
-        <input
-          type="text"
-          name="itemName"
-          value={item.itemName}
-          onChange={handleChange}
-          placeholder="Item Name"
-        />
         <input
           type="number"
           name="itemQuantity"
@@ -78,13 +110,6 @@ const CreateInvoice = () => {
           onChange={handleChange}
           placeholder="Item Code"
         />
-        {/* <input
-          type="number"
-          name="itemPrice"
-          value={item.itemPrice}
-          onChange={handleChange}
-          placeholder="Item Price"
-        /> */}
         <button onClick={addItem}>Add Item</button>
       </div>
       <div className="invoice-details">
@@ -96,6 +121,7 @@ const CreateInvoice = () => {
               <th>Quantity</th>
               <th>Item Code</th>
               <th>Price</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -105,6 +131,9 @@ const CreateInvoice = () => {
                 <td>{details.quantity}</td>
                 <td>{details.item.itemCode}</td>
                 <td>{details.item.itemPrice}</td>
+                <td>
+                  <button onClick={() => deleteItem(index)}>Delete</button>
+                </td>
               </tr>
             ))}
           </tbody>
@@ -112,8 +141,11 @@ const CreateInvoice = () => {
         <p className="total-amount">Total Amount: Rs. {invoice.totalAmount.toFixed(2)}</p>
       </div>
       <button className="create-invoice-btn" onClick={createInvoice}>Create Invoice</button>
-      {successMessage && <p className="success-message">{successMessage}</p>}
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
+{successMessage && <p className="success-message">{successMessage}</p>}
+{errorMessage && <p className="error-message">{errorMessage}</p>}
+{viewInvoice && <ViewInvoice invoice={invoice} />}
+{!viewInvoice && successMessage && <a href="#" onClick={() => setViewInvoice(true)}>View Invoice</a>}
+
     </div>
   );
 };

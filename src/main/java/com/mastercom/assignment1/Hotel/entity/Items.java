@@ -1,5 +1,7 @@
 package com.mastercom.assignment1.Hotel.entity;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,6 +20,12 @@ public class Items {
     private String itemName;
     private Double itemPrice;
     private String status;
+    
+    @OneToMany(mappedBy = "item", cascade = CascadeType.REMOVE)
+    private List<InvoiceDetails> invoiceDetails;
+    
+    
+    
 	public Long getItemCode() {
 		return itemCode;
 	}

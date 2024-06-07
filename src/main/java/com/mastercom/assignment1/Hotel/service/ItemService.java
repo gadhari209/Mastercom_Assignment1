@@ -3,6 +3,7 @@ package com.mastercom.assignment1.Hotel.service;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import com.mastercom.assignment1.Hotel.entity.Items;
 import com.mastercom.assignment1.Hotel.repository.ItemRepository;
@@ -54,11 +55,11 @@ public class ItemService {
             throw new IllegalArgumentException("Item code must be a positive number");
         }
         
-        
-        if (!itemRepository.existsById(itemCode)) {
-            throw new RuntimeException("Item not found with itemCode: " + itemCode);
+    	try {
+            itemRepository.deleteById(itemCode);
+        } catch (DataIntegrityViolationException e) {
+            throw new RuntimeException("Cannot delete item. It is referenced in invoice details.");
         }
-        itemRepository.deleteById(itemCode);
     }
     
     

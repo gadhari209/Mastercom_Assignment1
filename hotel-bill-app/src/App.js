@@ -57,11 +57,11 @@ function App() {
           <h1>Hotel Bill</h1>
           <nav>
             <ul className="nav-list">
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <Link to="/">Home</Link>
-              </li>
+              </li> */}
               <li className="nav-item">
-                <Link to="/add-item">Add Item</Link>
+                <Link to="/add-item">Add  New Item</Link>
               </li>
               <li className="nav-item">
                 <Link to="/items">Item List</Link>
@@ -74,10 +74,7 @@ function App() {
                   <Link to="/invoice">View Invoice</Link>
                 </li>
               )}
-              {/* Add link for editing items */}
-              <li className="nav-item">
-                <Link to="/edit-item">Edit Item</Link>
-              </li>
+              
             </ul>
           </nav>
         </header>
