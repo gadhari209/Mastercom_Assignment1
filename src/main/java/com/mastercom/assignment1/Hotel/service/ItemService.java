@@ -36,13 +36,20 @@ public class ItemService {
     public Items saveItem(Items item) {
         if (itemRepository.existsById(item.getItemCode())) {
             throw new RuntimeException("Item with itemCode " + item.getItemCode() + " already exists");
-        }if (item.getItemName() == null || item.getItemName().isEmpty()) {
-        	
+        }
+        
+        if (item.getItemName() == null || item.getItemName().isEmpty()) {
             throw new IllegalArgumentException("Item name cannot be empty");
         }
+        
+        if (itemRepository.existsByItemName(item.getItemName())) {
+            throw new IllegalArgumentException("Item with itemName already exists");
+        }
+        
         if (item.getItemPrice() == null || item.getItemPrice() <= 0) {
             throw new IllegalArgumentException("Item price must be a positive number");
         }
+
         return itemRepository.save(item);
     }
     

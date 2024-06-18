@@ -27,11 +27,19 @@ function ItemForm({ addItem }) {
         });
       })
       .catch((error) => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'There was an error creating the item!',
-        });
+        if (error.response && error.response.data && error.response.data.message === 'Item with itemName already exists') {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Item with this name already exists!',
+          });
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'There was an error creating the item!',
+          });
+        }
         console.error('There was an error creating the item!', error);
       });
   };

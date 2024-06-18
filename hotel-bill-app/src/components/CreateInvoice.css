@@ -4,7 +4,8 @@
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 8px;
-    background-color: #f9f9f9;
+    background-color: #ebe4e4;
+    backdrop-filter: blur(30px); 
   }
   
   h2 {

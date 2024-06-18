@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './CreateInvoice.css'; // Import the CSS file
 import { format } from 'date-fns';
+import Swal from 'sweetalert2'; // Import SweetAlert
 import ViewInvoice from './ViewInvoice'; // Import the ViewInvoice component
 
 const CreateInvoice = () => {
@@ -38,22 +39,30 @@ const CreateInvoice = () => {
   const addItem = async () => {
     const itemDetails = await fetchItemDetails(item.itemCode);
     if (itemDetails) {
-      const newItem = {
-        item: {
-          itemName: itemDetails.itemName,
-          itemCode: item.itemCode,
+      if (itemDetails.status === 'Available') {
+        const newItem = {
+          item: {
+            itemName: itemDetails.itemName,
+            itemCode: item.itemCode,
+            itemPrice: itemDetails.itemPrice,
+          },
           itemPrice: itemDetails.itemPrice,
-        },
-        itemPrice: itemDetails.itemPrice,
-        quantity: item.itemQuantity,
-      };
-      setInvoice((prevInvoice) => ({
-        ...prevInvoice,
-        invoiceDetailsList: [...prevInvoice.invoiceDetailsList, newItem],
-        totalAmount: prevInvoice.totalAmount + itemDetails.itemPrice * item.itemQuantity,
-      }));
-      setItem({ itemQuantity: '', itemCode: '' });
-      setErrorMessage('');
+          quantity: item.itemQuantity,
+        };
+        setInvoice((prevInvoice) => ({
+          ...prevInvoice,
+          invoiceDetailsList: [...prevInvoice.invoiceDetailsList, newItem],
+          totalAmount: prevInvoice.totalAmount + itemDetails.itemPrice * item.itemQuantity,
+        }));
+        setItem({ itemQuantity: '', itemCode: '' });
+        setErrorMessage('');
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Item Not Available',
+          text: 'The item you are trying to add is not available.',
+        });
+      }
     }
   };
 
@@ -96,19 +105,20 @@ const CreateInvoice = () => {
     <div className="invoice-container">
       <h2>Create Invoice</h2>
       <div className="item-inputs">
-        <input
-          type="number"
-          name="itemQuantity"
-          value={item.itemQuantity}
-          onChange={handleChange}
-          placeholder="Quantity"
-        />
+        
         <input
           type="text"
           name="itemCode"
           value={item.itemCode}
           onChange={handleChange}
           placeholder="Item Code"
+        />
+        <input
+          type="number"
+          name="itemQuantity"
+          value={item.itemQuantity}
+          onChange={handleChange}
+          placeholder="Quantity"
         />
         <button onClick={addItem}>Add Item</button>
       </div>
@@ -141,11 +151,10 @@ const CreateInvoice = () => {
         <p className="total-amount">Total Amount: Rs. {invoice.totalAmount.toFixed(2)}</p>
       </div>
       <button className="create-invoice-btn" onClick={createInvoice}>Create Invoice</button>
-{successMessage && <p className="success-message">{successMessage}</p>}
-{errorMessage && <p className="error-message">{errorMessage}</p>}
-{viewInvoice && <ViewInvoice invoice={invoice} />}
-{!viewInvoice && successMessage && <a href="#" onClick={() => setViewInvoice(true)}>View Invoice</a>}
-
+      {successMessage && <p className="success-message">{successMessage}</p>}
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
+      {viewInvoice && <ViewInvoice invoice={invoice} />}
+      {!viewInvoice && successMessage && <a href="#" onClick={() => setViewInvoice(true)}>View Invoice</a>}
     </div>
   );
 };

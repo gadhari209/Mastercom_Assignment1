@@ -1,0 +1,196 @@
+/* src/components/AvailableItems.css */
+.available-items-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+  }
+  
+  .available-items-heading {
+    text-align: center;
+    margin-bottom: 20px;
+    color: whitesmoke; /* Text color to white */
+    font-size: 24px;
+  }
+  
+  .available-items-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .available-items-table th, .available-items-table td {
+    border: 1px solid #ddd;
+    padding: 8px; /* Match padding with item list */
+    text-align: left;
+    color: whitesmoke; 
+  }
+  
+  .available-items-table th {
+    background-color: #2b2e2b; /* Same header background color */
+    color: white;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+  
+  .available-items-table tr:nth-child(even) {
+    background-color: #5e5a5a; /* Lighter shade for even rows */
+  }
+  
+  
+  
+  .edit-btn {
+    background-color: green;
+    color: white;
+  }
+  
+  .delete-btn {
+    background-color: red;
+    color: white;
+  }
+  
+  .save-btn, .cancel-btn {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  button:hover {
+    background-color: #ddd;
+  }
+  
+  .edit-btn:hover {
+    background-color: #3e8e41;
+  }
+  
+  .delete-btn:hover {
+    background-color: #d32f2f;
+  }
+  
+  .save-btn:hover, .cancel-btn:hover {
+    background-color: #45a049;
+  }
+  
+  .add-selected-items-btn {
+    margin-top: 10px;
+    background-color: #4CAF50; /* Green button background */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 5px; /* Rounded corners */
+    font-size: 16px; /* Larger font size */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+  }
+  
+  .add-selected-items-btn:hover {
+    background-color: #45a049; /* Darker green on hover */
+  }
+  /* Added Items Section */
+.added-items-container {
+  margin-top: 20px; /* Add margin between the main table and added items section */
+}
+
+.added-items-heading {
+  text-align: center;
+  margin-bottom: 10px;
+  color: whitesmoke; /* Text color to white */
+  font-size: 20px;
+}
+
+.added-items-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 10px;
+}
+
+.added-items-table th, .added-items-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+  color: whitesmoke;
+}
+
+.added-items-table th {
+  background-color: #2b2e2b; /* Same header background color */
+  color: white;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.added-items-table tr:nth-child(even) {
+  background-color: #5e5a5a; /* Lighter shade for even rows */
+}
+
+.total-amount {
+  text-align: right;
+  margin-top: 10px;
+  color: whitesmoke; /* Text color to white */
+  font-size: 18px;
+}
+/* Added Items Section */
+.added-items-container {
+    margin-top: 20px; /* Add margin between the main table and added items section */
+  }
+  
+  .added-items-heading {
+    text-align: center;
+    margin-bottom: 10px;
+    color: whitesmoke; /* Text color to white */
+    font-size: 20px;
+  }
+  
+  .added-items-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+  }
+  
+  .added-items-table th, .added-items-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .added-items-table th {
+    background-color: #2b2e2b; /* Same header background color */
+    color: white; /* Header text color to white */
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+  
+  .added-items-table tr:nth-child(even) {
+    background-color: #5e5a5a; /* Lighter shade for even rows */
+  }
+  
+  .total-amount {
+    text-align: right;
+    margin-top: 10px;
+    color: whitesmoke; /* Text color to white */
+    font-size: 18px;
+  }
+  .refresh-btn {
+    background-color: #007bff; /* Blue color */
+    color: white; /* Text color */
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .refresh-btn:hover {
+    background-color: #0056b3; /* Darker blue color on hover */
+  }
+  .add-to-cart-btn {
+    background-color: #28a745; /* Green color */
+    color: white; /* Text color */
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .add-to-cart-btn:hover {
+    background-color: #218838; /* Darker green color on hover */
+  }

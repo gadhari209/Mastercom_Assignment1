@@ -30,7 +30,9 @@
 .item-table tr:nth-child(even) {
   background-color: #f9f9f9;
 }
-
+.available-items-table tr:nth-child(odd) {
+  background-color: #767373; /* Different shade for odd rows */
+}
 .item-table tr:hover {
   background-color: #f1f1f1;
 }
